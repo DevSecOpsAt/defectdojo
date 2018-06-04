@@ -1,0 +1,31 @@
+version: "3"
+services:
+  dojo:
+    restart: always
+    image: appsecpipeline/django-defectdojo:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - django-DefectDojo:/django-DefectDojo
+      - ./env/settings.py:/opt/django-DefectDojo/dojo/settings/settings.py
+    depends_on:
+      - mysql
+    env_file:
+        - ./env/common.env
+        - ./env/dojo.env
+    command: bash /django-DefectDojo/docker/docker-startup.bash
+  mysql:
+    restart: always
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    env_file:
+        - ./env/common.env
+        - ./env/mysql.env
+    environment:
+      max_allowed_packet: "16M"
+    volumes:
+      - mysqldata:/var/lib/mysqldata/data/
+volumes:
+  mysqldata: {}
+  django-DefectDojo: {}
