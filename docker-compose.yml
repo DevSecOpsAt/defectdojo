@@ -5,7 +5,7 @@ services:
     image: appsecpipeline/django-defectdojo:latest
     ports:
       - "8000:8000"
-      - "80:80"
+      - "80:8000"
     volumes:
       - django-DefectDojo:/django-DefectDojo
       - ./env/settings.py:/opt/django-DefectDojo/dojo/settings/settings.py
