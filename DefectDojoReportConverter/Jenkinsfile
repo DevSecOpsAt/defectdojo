@@ -1,0 +1,25 @@
+node {
+	def serverID = "10.1.65.79"
+	def scanID = "9adabfdd-52f5-4452-a88e-97f42ba1836f"
+	stage('Job Info'){
+		echo "Hello World ${JOB_NAME}-${scanID}-${BUILD_NUMBER}-${BUILD_TIMESTAMP}"
+		sh 'pwd && ls -al && whoami && docker images'
+	}
+	stage('Provisioning'){
+	    if( "${BUILD_NUMBER}" == '1'){
+	        sh 'mkdir -p results'
+	        sh 'yes | cp /home/tsirait/upload/* `pwd`'
+	    }else{
+	        sh 'ls -al'
+	    }
+	}
+	stage('Download Project FES'){
+		sh "make download SERVER_IP=${serverID} SCAN_ID=${scanID} JOB_NAME=${JOB_NAME} BUILD_NUMBER=${BUILD_NUMBER}"
+	}
+	stage('Convert'){
+		sh "make convert JOB_NAME=${JOB_NAME} BUILD_NUMBER=${BUILD_NUMBER}"
+	}
+	stage('Upload to DD'){
+		sh 'make post JOB_NAME=${JOB_NAME}'
+	}
+}
