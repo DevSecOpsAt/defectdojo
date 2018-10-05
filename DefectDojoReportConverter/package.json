@@ -4,6 +4,7 @@
   "description": "Parses WebInspect xml files and creates generic defectdojo importer csv",
   "main": "convert_webinspect_xml_to_generic_defectdojo_csv.js",
   "dependencies": {
+    "fs": "0.0.1-security",
     "json2csv": "^4.2.1",
     "xml2js": "^0.4.19"
   },

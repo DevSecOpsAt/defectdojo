@@ -1,11 +1,12 @@
 var fs = require('fs');
+const Json2csvParser = require('json2csv').Parser;
+var parseString = require('xml2js').parseString;
+
 if (process.argv.length <= 2) {
     console.log("Usage: " + __filename + " SOME_PARAM");
     process.exit(-1);
 }
 const webInspectReport = fs.readFileSync(process.argv[2], 'UTF-8');
-const Json2csvParser = require('json2csv').Parser;
-var parseString = require('xml2js').parseString;
 
 function severityMapping(severity){
     let mapping = {

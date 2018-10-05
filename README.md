@@ -7,8 +7,21 @@ DefectDojo is a security tool that automates application security vulnerability 
 make build
 ```
 
+
+
 ## TRY convert parser
+### Install node and packages
+```
+cd DefectDojoReportConverter
+npm install json2csv --save
+npm install xml2js --save
+```
 
 ```
 node convert_webinspect_xml_to_generic_defectdojo_csv.js webInspectResult.xml > webInspectResultDefecDojoGeneric.csv
+```
+
+### on docker
+```
+make convert
 ```
